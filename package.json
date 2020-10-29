@@ -1,0 +1,24 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iogsotot/virtual-keyboard.git"
+  },
+  "author": "Anna Justus (ajustusa@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Iogsotot/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/Iogsotot/virtual-keyboard#readme",
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
