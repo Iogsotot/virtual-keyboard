@@ -3,11 +3,13 @@ export function set(name, value) {
 }
 
 export function get(name, subst = null) {
-  return JSON.parse(window.localStorage.getItem(name || subst));      //subst - подстраховка
+  // subst - подстраховка
+  return JSON.parse(window.localStorage.getItem(name || subst));
 }
 
 export function del(name, subst = null) {
   return window.localStorage.removeItem(name || subst);
 }
 
+// eslint-disable-next-line eol-last
 // lang = get('kbLang', '"ru"');
