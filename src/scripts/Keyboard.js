@@ -51,5 +51,31 @@ export default class Keyboard {
         }
       });
     });
+
+
+    document.addEventListener('keydown', this.handleEvent);
+    document.addEventListener('keyup', this.handleEvent);
+    // document.addEventListener('mousedown', this.handleEvent);
+    // document.addEventListener('mouseup', this.handleEvent);
+  }
+  // стрелочная функция для сохранения контекста
+  handleEvent = (e) => {
+    //один обработчик для всех событий
+    if (e.stopPropagation) e.stopPropagation();
+    // деструктуризация
+    const { code, type } = e;
+    const keyObj = this.keyButtons.find((key) => key.code === code);
+    if (!keyObj) return;
+    // вешаем постоянный фокус на textarea
+    this.output.focus();
+
+    if (type.match(/keydown|mousedown/)) {
+      if (type.match(/key/)) e.preventDefault();
+      //подсветка кнопок
+      keyObj.div.classList.add('active');
+
+    } else if (type.match(/keyup|mouseup/)) {
+      keyObj.div.classList.remove('active');
+    }
   }
 }
