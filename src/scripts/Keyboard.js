@@ -74,6 +74,7 @@ export default class Keyboard {
 
       //флаг состояния шифта
       if (code.match(/Shift/)) this.shiftKey = true;
+      if (this.shiftKey) this.switchUpperCase(true);
 
 
       //подсветка кнопок
@@ -136,6 +137,49 @@ export default class Keyboard {
       });
   }
 
+//подъём регистра в изображении клавиатуры
+switchUpperCase(isTrue) {
+  if (isTrue) {
+    this.keyButtons.forEach((button) => {
+      if (button.sub) {
+        if (this.shiftKey) {
+          button.sub.classList.add('any-class')        //класс для Uppercase
+          button.letter.classList.add('any-class-2')   // оно же
+        }
+      }
+
+      if (!button.isFnKey && this.isCaps && !this.shiftKey && !button.sub.innerHTML) {
+        button.letter.innerHTML = button.shift;
+      } else if (!button.isFnKey && this.isCaps && this.shiftKey) {
+        button.letter.innerHTML = button.small;
+      } else if (!button.isFnKey && !button.sub.innerHTML) {
+        button.letter.innerHTML = button.shift;
+      }
+    });
+  } else {
+    this.keyButtons.forEach((button) => {
+      //если пришла кнопка со спецсимволом
+      if (button.sub.innerHTML && !button.isFnKey) {
+        button.sub.classList.remove('any-class')        //класс для Uppercase
+        button.letter.classList.remove('any-class-2')   // оно же
+      
+        if (!this.isCaps) {
+          button.letter.innerHTML = button.small;
+        } else if (!this.isCaps) {
+          button.letter.innerHTML = button.shift;
+        }
+      
+      } else if (!button.isFnKey) {
+        if (this.isCaps) {
+          button.letter.innerHTML = button.shift;
+        } else {
+          button.letter.innerHTML = button.small;
+        }
+      }
+    });
+  }
+}
+
 
   //
   printToOutput(keyObj, symbol) {
@@ -147,6 +191,7 @@ export default class Keyboard {
     const fnButtonsHandler = {
       Tab: () => {
         this.output.value = `${left}\t${right}`;
+        cursorPos++;
       },
       ArrowLeft: () => {
         cursorPos = cursorPos-- >= 0 ? cursorPos-- : 0;
