@@ -55,9 +55,37 @@ export default class Keyboard {
 
     document.addEventListener('keydown', this.handleEvent);
     document.addEventListener('keyup', this.handleEvent);
-    // document.addEventListener('mousedown', this.handleEvent);
-    // document.addEventListener('mouseup', this.handleEvent);
+    //обработка кликов
+    this.container.addEventListener('mousedown', this.prehandleEvent);
+    this.container.addEventListener('mouseup', this.preHandleEvent);
   }
+
+  // функция обработки кликов
+  preHandleEvent = (e) => {
+    //отменяем всплытие (развернуть комментарий)
+    e.stopPropagation();
+    // ищем ближайшей элемент .keyboard__key (как при querySelector)
+    const keyDiv = e.target.closest('.keyboard__key');
+    if(!keyDiv) return;
+    const { dataset: {code}} = keyDiv;      // деструктуризация (ES6+)
+    keyDiv.addEventListener('mouseleave', this.resetButtonsState);
+
+    //создаём кастомный объект
+    this.handleEvent({code, type: e.type});
+  }
+ 
+  // отжатие кнопки, когда мышка ушла
+  resetButtonsState = ({ target: { dataset: { code } } }) => {
+    // if (code.match('Shift')) this.switchUpperCase(false);
+    // this.resetPressedButtons(code);
+    const keyObj = this.keyButtons.find((key) => key.code === code);
+    //убираем подстветку
+    keyObj.div.classList.remove('active');
+    //снимаем listener
+    keyObj.removeEventListener('mouseleave', this.resetButtonsState);
+  }
+
+
   // стрелочная функция для сохранения контекста
   handleEvent = (e) => {
     //один обработчик для всех событий
@@ -79,6 +107,16 @@ export default class Keyboard {
 
       //подсветка кнопок
       keyObj.div.classList.add('active');
+
+      // залипание класса для капса
+      if (code.match(/Caps/) && !this.isCaps) {
+        this.isCaps =true;
+        this.switchUpperCase(true);
+      } else if (code.match(/Caps/) && this.isCaps) {
+        this.isCaps = false;
+        this.switchUpperCase(false);
+        keyObj.div.classList.remove('active');
+      }
 
       // Смена языка
       if (code.match(/Control/)) this.ctrlKey = true;
@@ -102,11 +140,15 @@ export default class Keyboard {
 
       // работа кнопки
     } else if (type.match(/keyup|mouseup/)) {
-      keyObj.div.classList.remove('active');
-
-      if (code.match(/Shift/)) this.shiftKey = false;
+      
+      if (code.match(/Shift/)) {
+        this.shiftKey = false;
+        this.switchUpperCase(false);
+      }
       if (code.match(/Control/)) this.ctrlKey = false;
       if (code.match(/Alt/)) this.altKey = false;
+
+      if (!code.match(/Caps/))  keyObj.div.classList.remove('active');
     }
   }
 
@@ -135,6 +177,9 @@ export default class Keyboard {
         }
         button.letter.innerHTML = keyObj.small;
       });
+
+      // проверяем зажатый капс
+      if (this.isCaps) this.switchUpperCase(true); 
   }
 
 //подъём регистра в изображении клавиатуры
