@@ -21,7 +21,7 @@ export default class Keyboard {
 
   // ru or en
   init(langCode) {
-    this.keyBase = language[langCode];
+    this.keyBase = language[langCode];    // массив
     // output - вывод, равнозначно можно назвать как textarea
     // по сути output это замена querySelector
     this.output = create('textarea', 'output', null, main,
@@ -71,11 +71,132 @@ export default class Keyboard {
 
     if (type.match(/keydown|mousedown/)) {
       if (type.match(/key/)) e.preventDefault();
+
+      //флаг состояния шифта
+      if (code.match(/Shift/)) this.shiftKey = true;
+
+
       //подсветка кнопок
       keyObj.div.classList.add('active');
 
+      // Смена языка
+      if (code.match(/Control/)) this.ctrlKey = true;
+      if (code.match(/Alt/)) this.altKey = true;
+
+      if (code.match(/Control/) && this.altKey) this.switchLang();
+      if (code.match(/Alt/) && this.ctrlKey) this.switchLang();
+
+
+      //проверяем статус капслока
+      if (!this.isCaps) {
+        this.printToOutput(keyObj, this.shiftKey ? keyObj.shift : keyObj.small);
+      } else if (this.isCaps) {
+        if (this.shiftKey) {
+          this.printToOutput(keyObj, keyObj.sub.innerHTML ? keyObj.shift : keyObj.small);
+        } else {
+          this.printToOutput(keyObj, !keyObj.sub.innerHTML ? keyObj.shift : keyObj.small);
+        }
+      }
+
+
+      // работа кнопки
     } else if (type.match(/keyup|mouseup/)) {
       keyObj.div.classList.remove('active');
+
+      if (code.match(/Shift/)) this.shiftKey = false;
+      if (code.match(/Control/)) this.ctrlKey = false;
+      if (code.match(/Alt/)) this.altKey = false;
     }
   }
+
+  // сменя языка по хоткею
+  switchLang = () => {
+    // получаем аббревиатуту языка
+    const LangAbbr = Object.keys(language); // получаем массив языков
+    let langIndex = LangAbbr.indexOf(this.container.dataset.language);  // 1 default
+    this.keyBase = langIndex + 1 < LangAbbr.length ? language[LangAbbr[langIndex++]]  //langIndex += 1
+      : language[LangAbbr[langIndex -= langIndex]];    //обнуляем индекс языка
+
+      this.container.dataset.language = LangAbbr[langIndex];
+      storage.set('kbLang', LangAbbr[langIndex]);
+
+      this.keyButtons.forEach((button) => {
+        // итерация по всем кнопкам, смотрим в их базу и ищем объект key, проверяем равенство с button.code
+        const keyObj = this.keyBase.find((key) => key.code === button.code);
+        if (!keyObj) return;
+        button.shift = keyObj.shift;
+        button.small = keyObj.small;
+
+        if (keyObj.shift && keyObj.shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
+          button.sub.innerHTML = keyObj.shift;
+        } else {
+          button.sub.innerHTML = '';
+        }
+        button.letter.innerHTML = keyObj.small;
+      });
+  }
+
+
+  //
+  printToOutput(keyObj, symbol) {
+    //находим значение курсора
+    let cursorPos = this.output.selectionStart;
+    const left = this.output.value(0, cursorPos);
+    const right = this.output.value.slice(cursorPos);
+
+    const fnButtonsHandler = {
+      Tab: () => {
+        this.output.value = `${left}\t${right}`;
+      },
+      ArrowLeft: () => {
+        cursorPos = cursorPos-- >= 0 ? cursorPos-- : 0;
+      },
+      ArrowLeft: () => {
+        cursorPos++
+      },
+      // считает количество знаков до первого перевода позиции (перевода каретки)
+      //регулярка - первый перевод стоки и любые символы после него
+      ArrowUp: () => {
+        const positionFromLeft = this.output.value.slice(0, cursorPos).match(/(\n).*$(?!\1)/g) || [[1]];
+        cursorPos -= positionFromLeft[0].length;
+      },
+      ArrowDown: () => {
+        const positionFromLeft = this.output.value.slice(cursorPos).match(/^.*(\n).*$(?!\1)/) || [[1]];
+        cursorPos += positionFromLeft[0].length;
+      },
+      Enter: () => {
+        this.output.value = `${left}\n${right}`;
+        cursorPos++;
+      },
+      // Backspace удаляет один символ слева (см. подробнее метод slice())
+      Backspace: () => {
+        this.output.value = `${left.slice(0, -1)}${right}`;
+        cursorPos--;
+      },
+      // Delete убирает один символ справа
+      Delete: () => {
+        this.output.value = `${left}${right.slice(1)}`;
+      },
+      Space: () => {
+        this.output.value = `${left} ${right}`;
+        cursorPos++;
+      }
+    }
+
+    // на вход берем keyObj
+    // fnButtonsHandler[keyObj.code]()  - мы вызываем метод, который находится в 
+    // fnButtons Handler по адресу keyObj.code
+    if (fnButtonsHandler[keyObj.code]) fnButtonsHandler[keyObj.code]();
+
+    //если нам пришла не FnKey, то сдвигаем курсор на 1
+    else if (!keyObj.isFnKey) {
+      cursorPos++;
+      //режем строку пополам, склеиваем: левая часть + новый символ(или ничего) + правая часть
+      this.output.value = `${left}${symbol || ''}${right}`;
+    }
+    //обновляем позицию курсора
+    // setSelectionRange(0, 3) - произойдет выделение текста с 1 по 4 символ
+    this.output.setSelectionRange(cursorPos, cursorPos);
+  }
+
 }
