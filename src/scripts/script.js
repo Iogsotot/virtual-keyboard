@@ -10,6 +10,6 @@ const rowsOrder = [
   ['ControlLeft', 'Win', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'],
 ];
 
-const lang = get('kbLang', '"ru"');
+const language = get('kbLang', '"ru"');
 
-new Keyboard(rowsOrder).init(lang).generateLayout();
+new Keyboard(rowsOrder).init(language).generateLayout();

@@ -1,4 +1,4 @@
-/* eslint-disable import/extensions */
+/* eslint-disable no-param-reassign */
 /* eslint-disable import/extensions */
 
 import * as storage from './storage.js';
@@ -8,20 +8,22 @@ import Key from './Key.js';
 
 const main = create('main', '',
 // здесь прописываем наши HTML элементы вида 'тег', 'класс', 'содержание'
-  [create('h1', 'title', 'Virtual Keyboard'),
-    create('p', 'text', 'Чудесная клавиатура!')]);
+  [create('h1', 'title', 'Virtual Keyboard')]);
 
 export default class Keyboard {
   constructor(rowsOrder) {
     this.rowsOrder = rowsOrder;
     // смотрим значение в объекте по ключу
-    this.keyPressed = {};
+    this.keysPressed = {};
     this.isCaps = false;
+    this.keyBase = [];
   }
 
   // ru or en
   init(langCode) {
-    this.keyBase = language[langCode];    // массив
+    // console.log(langCode);
+    // console.log(this.keyBase);
+    this.keyBase = language[langCode]; // массив
     // output - вывод, равнозначно можно назвать как textarea
     // по сути output это замена querySelector
     this.output = create('textarea', 'output', null, main,
@@ -52,43 +54,42 @@ export default class Keyboard {
       });
     });
 
-
     document.addEventListener('keydown', this.handleEvent);
     document.addEventListener('keyup', this.handleEvent);
-    //обработка кликов
-    this.container.addEventListener('mousedown', this.prehandleEvent);
+    // обработка кликов
+    this.container.addEventListener('mousedown', this.preHandleEvent);
     this.container.addEventListener('mouseup', this.preHandleEvent);
   }
 
   // функция обработки кликов
   preHandleEvent = (e) => {
-    //отменяем всплытие (развернуть комментарий)
+    // отменяем всплытие (развернуть комментарий)
     e.stopPropagation();
     // ищем ближайшей элемент .keyboard__key (как при querySelector)
     const keyDiv = e.target.closest('.keyboard__key');
-    if(!keyDiv) return;
-    const { dataset: {code}} = keyDiv;      // деструктуризация (ES6+)
-    keyDiv.addEventListener('mouseleave', this.resetButtonsState);
+    if (!keyDiv) return;
+    const { dataset: { code } } = keyDiv; // деструктуризация (ES6+)
+    keyDiv.addEventListener('mouseleave', this.resetButtonState);
 
-    //создаём кастомный объект
-    this.handleEvent({code, type: e.type});
-  }
- 
-  // отжатие кнопки, когда мышка ушла
-  resetButtonsState = ({ target: { dataset: { code } } }) => {
-    // if (code.match('Shift')) this.switchUpperCase(false);
-    // this.resetPressedButtons(code);
-    const keyObj = this.keyButtons.find((key) => key.code === code);
-    //убираем подстветку
-    keyObj.div.classList.remove('active');
-    //снимаем listener
-    keyObj.removeEventListener('mouseleave', this.resetButtonsState);
+    // создаём кастомный объект
+    this.handleEvent({ code, type: e.type });
+    // console.log(this.handleEvent)
   }
 
+  // // отжатие кнопки, когда мышка ушла
+  // resetButtonState = ({ target: { dataset: { code } } }) => {
+  //   // if (code.match('Shift')) this.switchUpperCase(false);
+  //   // this.resetPressedButtons(code);
+  //   const keyObj = this.keyButtons.find((key) => key.code === code);
+  //   // убираем подсветку
+  //   keyObj.div.classList.remove('active');
+  //   // снимаем listener
+  //   keyObj.removeEventListener('mouseleave', this.resetButtonsState);
+  // }
 
   // стрелочная функция для сохранения контекста
   handleEvent = (e) => {
-    //один обработчик для всех событий
+    // один обработчик для всех событий
     if (e.stopPropagation) e.stopPropagation();
     // деструктуризация
     const { code, type } = e;
@@ -98,25 +99,13 @@ export default class Keyboard {
     this.output.focus();
 
     if (type.match(/keydown|mousedown/)) {
-      if (type.match(/key/)) e.preventDefault();
+      if (!type.match(/mouse/)) e.preventDefault();
 
-      //флаг состояния шифта
+      // флаг состояния шифта
       if (code.match(/Shift/)) this.shiftKey = true;
       if (this.shiftKey) this.switchUpperCase(true);
 
-
-      //подсветка кнопок
-      keyObj.div.classList.add('active');
-
-      // залипание класса для капса
-      if (code.match(/Caps/) && !this.isCaps) {
-        this.isCaps =true;
-        this.switchUpperCase(true);
-      } else if (code.match(/Caps/) && this.isCaps) {
-        this.isCaps = false;
-        this.switchUpperCase(false);
-        keyObj.div.classList.remove('active');
-      }
+      if (code.match(/Control|Alt|Caps/) && e.repeat) return;
 
       // Смена языка
       if (code.match(/Control/)) this.ctrlKey = true;
@@ -125,8 +114,20 @@ export default class Keyboard {
       if (code.match(/Control/) && this.altKey) this.switchLang();
       if (code.match(/Alt/) && this.ctrlKey) this.switchLang();
 
+      // подсветка кнопок
+      keyObj.div.classList.add('active');
 
-      //проверяем статус капслока
+      // залипание класса для капса
+      if (code.match(/Caps/) && !this.isCaps) {
+        this.isCaps = true;
+        this.switchUpperCase(true);
+      } else if (code.match(/Caps/) && this.isCaps) {
+        this.isCaps = false;
+        this.switchUpperCase(false);
+        keyObj.div.classList.remove('active');
+      }
+
+      // проверяем статус капслока
       if (!this.isCaps) {
         this.printToOutput(keyObj, this.shiftKey ? keyObj.shift : keyObj.small);
       } else if (this.isCaps) {
@@ -137,10 +138,13 @@ export default class Keyboard {
         }
       }
 
+      this.keysPressed[keyObj.code] = keyObj;
+      // console.log(keyObj);
+      console.log(this.keysPressed);
 
       // работа кнопки
     } else if (type.match(/keyup|mouseup/)) {
-      
+      this.resetPressedButtons(code);
       if (code.match(/Shift/)) {
         this.shiftKey = false;
         this.switchUpperCase(false);
@@ -148,104 +152,128 @@ export default class Keyboard {
       if (code.match(/Control/)) this.ctrlKey = false;
       if (code.match(/Alt/)) this.altKey = false;
 
-      if (!code.match(/Caps/))  keyObj.div.classList.remove('active');
+      if (!code.match(/Caps/)) keyObj.div.classList.remove('active');
     }
+  }
+
+  // отжатие кнопки, когда мышка ушла
+  resetButtonState = ({ target: { dataset: { code } } }) => {
+    if (code.match('Shift')) {
+      this.switchUpperCase(false);
+      this.shiftKey = false;
+      // убираем подсветку
+      this.keysPressed[code].div.classList.remove('active');
+    }
+    if (code.match(/Control/)) this.ctrlKey = false;
+    if (code.match(/Alt/)) this.altKey = false;
+    this.resetPressedButtons(code);
+    this.output.focus();
+  }
+
+  // ?????
+  resetPressedButtons = (targetCode) => {
+    if (!this.keysPressed[targetCode]) return;
+    // убираем подсветку
+    if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
+    // снимаем listener
+    this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
+    delete this.keysPressed[targetCode];
   }
 
   // сменя языка по хоткею
   switchLang = () => {
-    // получаем аббревиатуту языка
+    // получаем аббревиатуру языка
     const LangAbbr = Object.keys(language); // получаем массив языков
-    let langIndex = LangAbbr.indexOf(this.container.dataset.language);  // 1 default
-    this.keyBase = langIndex + 1 < LangAbbr.length ? language[LangAbbr[langIndex++]]  //langIndex += 1
-      : language[LangAbbr[langIndex -= langIndex]];    //обнуляем индекс языка
+    let langIndex = LangAbbr.indexOf(this.container.dataset.language); // 1 default
+    this.keyBase = langIndex + 1 < LangAbbr.length ? language[LangAbbr[langIndex += 1]]
+      : language[LangAbbr[langIndex -= langIndex]]; // обнуляем индекс языка
 
-      this.container.dataset.language = LangAbbr[langIndex];
-      storage.set('kbLang', LangAbbr[langIndex]);
+    this.container.dataset.language = LangAbbr[langIndex];
+    storage.set('kbLang', LangAbbr[langIndex]);
 
+    this.keyButtons.forEach((button) => {
+      // итерация по всем кнопкам, смотрим в их базу и ищем объект key,
+      // проверяем равенство с button.code
+      const keyObj = this.keyBase.find((key) => key.code === button.code);
+      if (!keyObj) return;
+      // eslint-disable-next-line no-param-reassign
+      button.shift = keyObj.shift;
+      button.small = keyObj.small;
+
+      if (keyObj.shift && keyObj.shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
+        button.sub.innerHTML = keyObj.shift;
+      } else {
+        button.sub.innerHTML = '';
+      }
+      button.letter.innerHTML = keyObj.small;
+    });
+
+    // проверяем зажатый капс
+    if (this.isCaps) this.switchUpperCase(true);
+  }
+
+  // подъём регистра в изображении клавиатуры
+  switchUpperCase(isTrue) {
+    if (isTrue) {
       this.keyButtons.forEach((button) => {
-        // итерация по всем кнопкам, смотрим в их базу и ищем объект key, проверяем равенство с button.code
-        const keyObj = this.keyBase.find((key) => key.code === button.code);
-        if (!keyObj) return;
-        button.shift = keyObj.shift;
-        button.small = keyObj.small;
-
-        if (keyObj.shift && keyObj.shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
-          button.sub.innerHTML = keyObj.shift;
-        } else {
-          button.sub.innerHTML = '';
+        if (button.sub) {
+          if (this.shiftKey) {
+            button.sub.classList.add('sub-active'); // класс для Uppercase
+            button.letter.classList.add('sub-inactive'); // оно же
+          }
         }
-        button.letter.innerHTML = keyObj.small;
+
+        if (!button.isFnKey && this.isCaps && !this.shiftKey && !button.sub.innerHTML) {
+          button.letter.innerHTML = button.shift;
+        } else if (!button.isFnKey && this.isCaps && this.shiftKey) {
+          button.letter.innerHTML = button.small;
+        } else if (!button.isFnKey && !button.sub.innerHTML) {
+          button.letter.innerHTML = button.shift;
+        }
       });
+    } else {
+      this.keyButtons.forEach((button) => {
+      // если пришла кнопка со спецсимволом
+        if (button.sub.innerHTML && !button.isFnKey) {
+          button.sub.classList.remove('sub-active'); // класс для Uppercase
+          button.letter.classList.remove('sub-inactive'); // оно же
 
-      // проверяем зажатый капс
-      if (this.isCaps) this.switchUpperCase(true); 
+          if (!this.isCaps) {
+            button.letter.innerHTML = button.small;
+          } else if (!this.isCaps) {
+            button.letter.innerHTML = button.shift;
+          }
+        } else if (!button.isFnKey) {
+          if (this.isCaps) {
+            button.letter.innerHTML = button.shift;
+          } else {
+            button.letter.innerHTML = button.small;
+          }
+        }
+      });
+    }
   }
 
-//подъём регистра в изображении клавиатуры
-switchUpperCase(isTrue) {
-  if (isTrue) {
-    this.keyButtons.forEach((button) => {
-      if (button.sub) {
-        if (this.shiftKey) {
-          button.sub.classList.add('any-class')        //класс для Uppercase
-          button.letter.classList.add('any-class-2')   // оно же
-        }
-      }
-
-      if (!button.isFnKey && this.isCaps && !this.shiftKey && !button.sub.innerHTML) {
-        button.letter.innerHTML = button.shift;
-      } else if (!button.isFnKey && this.isCaps && this.shiftKey) {
-        button.letter.innerHTML = button.small;
-      } else if (!button.isFnKey && !button.sub.innerHTML) {
-        button.letter.innerHTML = button.shift;
-      }
-    });
-  } else {
-    this.keyButtons.forEach((button) => {
-      //если пришла кнопка со спецсимволом
-      if (button.sub.innerHTML && !button.isFnKey) {
-        button.sub.classList.remove('any-class')        //класс для Uppercase
-        button.letter.classList.remove('any-class-2')   // оно же
-      
-        if (!this.isCaps) {
-          button.letter.innerHTML = button.small;
-        } else if (!this.isCaps) {
-          button.letter.innerHTML = button.shift;
-        }
-      
-      } else if (!button.isFnKey) {
-        if (this.isCaps) {
-          button.letter.innerHTML = button.shift;
-        } else {
-          button.letter.innerHTML = button.small;
-        }
-      }
-    });
-  }
-}
-
-
-  //
+  // вывод
   printToOutput(keyObj, symbol) {
-    //находим значение курсора
+    // находим значение курсора
     let cursorPos = this.output.selectionStart;
-    const left = this.output.value(0, cursorPos);
+    const left = this.output.value.slice(0, cursorPos);
     const right = this.output.value.slice(cursorPos);
 
     const fnButtonsHandler = {
       Tab: () => {
         this.output.value = `${left}\t${right}`;
-        cursorPos++;
+        cursorPos += 1;
       },
       ArrowLeft: () => {
-        cursorPos = cursorPos-- >= 0 ? cursorPos-- : 0;
+        cursorPos = cursorPos - 1 >= 0 ? cursorPos - 1 : 0;
       },
-      ArrowLeft: () => {
-        cursorPos++
+      ArrowRight: () => {
+        cursorPos += 1;
       },
       // считает количество знаков до первого перевода позиции (перевода каретки)
-      //регулярка - первый перевод стоки и любые символы после него
+      // регулярка - первый перевод стоки и любые символы после него
       ArrowUp: () => {
         const positionFromLeft = this.output.value.slice(0, cursorPos).match(/(\n).*$(?!\1)/g) || [[1]];
         cursorPos -= positionFromLeft[0].length;
@@ -256,12 +284,12 @@ switchUpperCase(isTrue) {
       },
       Enter: () => {
         this.output.value = `${left}\n${right}`;
-        cursorPos++;
+        cursorPos += 1;
       },
       // Backspace удаляет один символ слева (см. подробнее метод slice())
       Backspace: () => {
         this.output.value = `${left.slice(0, -1)}${right}`;
-        cursorPos--;
+        cursorPos -= 1;
       },
       // Delete убирает один символ справа
       Delete: () => {
@@ -269,24 +297,23 @@ switchUpperCase(isTrue) {
       },
       Space: () => {
         this.output.value = `${left} ${right}`;
-        cursorPos++;
-      }
-    }
+        cursorPos += 1;
+      },
+    };
 
     // на вход берем keyObj
-    // fnButtonsHandler[keyObj.code]()  - мы вызываем метод, который находится в 
+    // fnButtonsHandler[keyObj.code]()  - мы вызываем метод, который находится в
     // fnButtons Handler по адресу keyObj.code
     if (fnButtonsHandler[keyObj.code]) fnButtonsHandler[keyObj.code]();
 
-    //если нам пришла не FnKey, то сдвигаем курсор на 1
+    // если нам пришла не FnKey, то сдвигаем курсор на 1
     else if (!keyObj.isFnKey) {
-      cursorPos++;
-      //режем строку пополам, склеиваем: левая часть + новый символ(или ничего) + правая часть
+      cursorPos += 1;
+      // режем строку пополам, склеиваем: левая часть + новый символ(или ничего) + правая часть
       this.output.value = `${left}${symbol || ''}${right}`;
     }
-    //обновляем позицию курсора
+    // обновляем позицию курсора
     // setSelectionRange(0, 3) - произойдет выделение текста с 1 по 4 символ
     this.output.setSelectionRange(cursorPos, cursorPos);
   }
-
 }

@@ -38,7 +38,8 @@ export default function create(el, classNames, progeny, parent, ...dataAttr) {
     dataAttr.forEach(([attrName, attrValue]) => { // деструктуризация(ES6+)
       if (attrValue === '') {
         element.setAttribute(attrName, '');
-      } else if (attrName.match(/value|id|placeholder|cols|rows|autocorrect|spellcheck/)) {
+      }
+      if (attrName.match(/value|id|placeholder|cols|rows|autocorrect|spellcheck/)) {
         element.setAttribute(attrName, attrValue);
       } else { // если мы сюда упали, значит пришёл data-attr
         element.dataset[attrName] = attrValue;

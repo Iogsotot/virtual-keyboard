@@ -1,3 +1,4 @@
+// import create from '../../other/virtual-keyboard-live-master/js/utils/create';
 // eslint-disable import/extensions
 import create from './utils/create.js';
 
@@ -8,9 +9,9 @@ export default class Key {
     this.shift = shift;
     this.isFnKey = Boolean(small.match(/Ctrl|arr|Alt|Shift|Tab|Back|Del|Enter|Caps|Esc\Win/));
 
-    // проверяем, что если в объекте по ключу shift лежит не буквы и не цифры, то 
+    // проверяем, что если в объекте по ключу shift лежит не буквы и не цифры, то
     // создаём элемент div с классом sub и записывает в свойства экземпляра класса Key
-    if(shift && shift.match(/[^a-zA-Zа-ЯА-яёЁ0-9]/)) {
+    if (shift && shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
       this.sub = create('div', 'sub', this.shift);
     } else {
       this.sub = create('div', 'sub', '');
@@ -18,6 +19,6 @@ export default class Key {
 
     this.letter = create('div', 'letter', small);
     this.div = create('div', 'keyboard__key', [this.sub, this.letter], null, ['code', this.code],
-      this.isFnKey ? ['fn', 'true'] : ['fn', 'false']);  //для стилей
+      this.isFnKey ? ['fn', 'true'] : ['fn', 'false']); // для стилей
   }
 }
