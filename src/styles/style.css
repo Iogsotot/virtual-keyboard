@@ -41,7 +41,7 @@ main {
       grid-template-rows: auto;
   width: 50rem;
   border: 0.2rem solid rgba(1, 39, 88, 0.1);
-  background-color: rgba(192, 192, 192, 0.6);
+  background-color: black;
 }
 
 .keyboard__row {
@@ -73,15 +73,16 @@ main {
   padding: 0.2rem;
   margin: 0 0.15rem;
   font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  color: #fff;
   cursor: pointer;
-  background-color: black;
+  background-color: #333333;
 }
 
 .keyboard__key .sub {
   font-size: 1.1rem;
   text-align: left;
-  color: rgba(255, 255, 255, 0.6);
+  color: #7a7a7a;
 }
 
 .keyboard__key .letter {
@@ -95,7 +96,8 @@ main {
 
 [data-code="ControlRight"],
 [data-code="Tab"],
-[data-code="ControlLeft"] {
+[data-code="ControlLeft"],
+[data-code*="Alt"] {
   grid-column: auto / span 3;
 }
 

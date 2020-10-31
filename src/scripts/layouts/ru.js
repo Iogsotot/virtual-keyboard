@@ -320,8 +320,28 @@ export default [
     code: 'ArrowRight',
   },
   {
-    small: 'Win',
+    small: 'Mic',
+    shift: null,
+    code: 'Mic',
+  },
+  {
+    small: 'en/ru',
+    shift: null,
+    code: 'En/ru',
+  },
+  {
+    small: 'Clear',
     shift: null,
     code: 'Win',
+  },
+  {
+    small: 'SoundKeySwitch',
+    shift: null,
+    code: 'SoundKeySwitch',
+  },
+  {
+    small: 'BackgroundSound',
+    shift: null,
+    code: 'BackgroundSound',
   },
 ];
