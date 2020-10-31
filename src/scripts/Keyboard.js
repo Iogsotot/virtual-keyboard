@@ -16,6 +16,7 @@ export default class Keyboard {
     // смотрим значение в объекте по ключу
     this.keysPressed = {};
     this.isCaps = false;
+    // this.shiftKey = false;
     this.keyBase = [];
   }
 
@@ -41,7 +42,7 @@ export default class Keyboard {
     this.keyButtons = []; // Key() - инстансы кнопок
     this.rowsOrder.forEach((row, i) => {
       const rowElement = create('div', 'keyboard__row', null, this.container, ['row', i + 1]);
-      rowElement.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`;
+      // rowElement.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`;
       row.forEach((code) => {
         // получаем значение из rowOrder и ищем этот объект в layouts по ключу
         const keyObj = this.keyBase.find((key) => key.code === code);
@@ -105,7 +106,7 @@ export default class Keyboard {
       if (code.match(/Shift/)) this.shiftKey = true;
       if (this.shiftKey) this.switchUpperCase(true);
 
-      if (code.match(/Control|Alt|Caps/) && e.repeat) return;
+      if (code.match(/Control|Alt|Caps|Shift/) && e.repeat) return;
 
       // Смена языка
       if (code.match(/Control/)) this.ctrlKey = true;
@@ -127,6 +128,16 @@ export default class Keyboard {
         keyObj.div.classList.remove('active');
       }
 
+      // // залипание класса для шифта
+      // if (code.match(/Shift/) && !this.shiftKey) {
+      //   this.shiftKey = true;
+      //   this.switchUpperCase(true);
+      // } else if (code.match(/Shift/) && this.shiftKey) {
+      //   this.shiftKey = false;
+      //   this.switchUpperCase(false);
+      //   keyObj.div.classList.remove('active');
+      // }
+
       // проверяем статус капслока
       if (!this.isCaps) {
         this.printToOutput(keyObj, this.shiftKey ? keyObj.shift : keyObj.small);
@@ -138,9 +149,11 @@ export default class Keyboard {
         }
       }
 
+    
+
       this.keysPressed[keyObj.code] = keyObj;
       // console.log(keyObj);
-      console.log(this.keysPressed);
+      // console.log(this.keysPressed);
 
       // работа кнопки
     } else if (type.match(/keyup|mouseup/)) {

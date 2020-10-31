@@ -145,7 +145,7 @@ export default [
     code: 'Enter',
   },
   {
-    small: 'CapsLock',
+    small: 'CapsLk',
     shift: null,
     code: 'CapsLock',
   },
