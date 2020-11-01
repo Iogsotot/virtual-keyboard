@@ -26,6 +26,7 @@ export default class Keyboard {
     this.sounds.set('fn', document.getElementById('fnSound'));
     this.sounds.set('num', document.getElementById('numSound'));
 
+    this.sounds.set('enter', document.getElementById('enterSound'));
     this.sounds.set('mic', document.getElementById('micSound'));
     this.sounds.set('lang', document.getElementById('langSound'));
     this.sounds.set('ghost', document.getElementById('ghostSound'));
@@ -35,6 +36,7 @@ export default class Keyboard {
     this.sounds.set('tab', document.getElementById('tabSound'));
     this.sounds.set('shift', document.getElementById('shiftSound'));
     this.sounds.set('close', document.getElementById('closeSound'));
+    this.sounds.set('backspace', document.getElementById('backspaceSound'));
   }
 
   // ru or en

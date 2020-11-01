@@ -81,7 +81,7 @@ export default [
     small: 'Backspace',
     shift: null,
     code: 'Backspace',
-    sound: 'fn',
+    sound: 'backspace',
   },
   {
     small: 'Delete',
@@ -171,7 +171,7 @@ export default [
     small: 'Enter',
     shift: null,
     code: 'Enter',
-    sound: 'fn',
+    sound: 'enter',
   },
   {
     small: 'CapsLk',
