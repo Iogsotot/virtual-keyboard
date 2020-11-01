@@ -90,6 +90,10 @@ main {
   vertical-align: middle;
 }
 
+.keyboard__key.active {
+  background-color: green;
+}
+
 [data-code*="Digit"] .letter {
   text-align: right;
 }
@@ -97,12 +101,15 @@ main {
 [data-code="ControlRight"],
 [data-code="Tab"],
 [data-code="ControlLeft"],
-[data-code*="Alt"] {
+[data-code*="Alt"],
+[data-code="Clear"] {
   grid-column: auto / span 3;
 }
 
 [data-code="Enter"],
-[data-code="Delete"] {
+[data-code="Delete"],
+[data-code="Lang"],
+[data-code="Mic"] {
   grid-column: auto / span 4;
 }
 
@@ -117,6 +124,11 @@ main {
 
 [data-code="Backspace"] {
   grid-column: auto / span 7;
+}
+
+[data-code="BackgroundSound"],
+[data-code*="Sound"] {
+  grid-column: auto / span 10;
 }
 
 [data-code="Space"] {

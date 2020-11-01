@@ -13,11 +13,17 @@ const main = create('main', '',
 export default class Keyboard {
   constructor(rowsOrder) {
     this.rowsOrder = rowsOrder;
+    this.soundEnabled = true;
     // смотрим значение в объекте по ключу
     this.keysPressed = {};
     this.isCaps = false;
-    // this.shiftKey = false;
+    this.isShift = false;
     this.keyBase = [];
+    this.sounds = new Map();
+    this.sounds.set('ru', document.getElementById('ruSound'));
+    this.sounds.set('en', document.getElementById('enSound'));
+    this.sounds.set('fn', document.getElementById('fnSound'));
+    this.sounds.set('num', document.getElementById('numSound'));
   }
 
   // ru or en
@@ -88,6 +94,12 @@ export default class Keyboard {
   //   keyObj.removeEventListener('mouseleave', this.resetButtonsState);
   // }
 
+  changeSoundSetting() {
+    if (this.soundEnabled) this.soundEnabled = false;
+    else this.soundEnabled = true;
+    storage.set('kbSoundEnabled', this.soundEnabled);
+  }
+
   // стрелочная функция для сохранения контекста
   handleEvent = (e) => {
     // один обработчик для всех событий
@@ -99,12 +111,19 @@ export default class Keyboard {
     // вешаем постоянный фокус на textarea
     this.output.focus();
 
+    if (this.soundEnabled) {
+      // добавляем звук(смотрим в объект клавиши)
+      this.sounds.get(keyObj.sound).play();
+    }
+
     if (type.match(/keydown|mousedown/)) {
       if (!type.match(/mouse/)) e.preventDefault();
 
       // флаг состояния шифта
-      if (code.match(/Shift/)) this.shiftKey = true;
-      if (this.shiftKey) this.switchUpperCase(true);
+      if (code.match(/Shift/)) this.isShift = true;
+      if (this.isShift) this.switchUpperCase(true);
+
+      if (code.match(/SoundKeySwitch/)) this.changeSoundSetting();
 
       if (code.match(/Control|Alt|Caps|Shift/) && e.repeat) return;
 
@@ -129,27 +148,25 @@ export default class Keyboard {
       }
 
       // // залипание класса для шифта
-      // if (code.match(/Shift/) && !this.shiftKey) {
-      //   this.shiftKey = true;
+      // if (code.match(/Shift/) && !this.isShift) {
+      //   this.isShift = true;
       //   this.switchUpperCase(true);
-      // } else if (code.match(/Shift/) && this.shiftKey) {
-      //   this.shiftKey = false;
+      // } else if (code.match(/Shift/) && this.isShift) {
+      //   this.isShift = false;
       //   this.switchUpperCase(false);
       //   keyObj.div.classList.remove('active');
       // }
 
       // проверяем статус капслока
       if (!this.isCaps) {
-        this.printToOutput(keyObj, this.shiftKey ? keyObj.shift : keyObj.small);
+        this.printToOutput(keyObj, this.isShift ? keyObj.shift : keyObj.small);
       } else if (this.isCaps) {
-        if (this.shiftKey) {
+        if (this.isShift) {
           this.printToOutput(keyObj, keyObj.sub.innerHTML ? keyObj.shift : keyObj.small);
         } else {
           this.printToOutput(keyObj, !keyObj.sub.innerHTML ? keyObj.shift : keyObj.small);
         }
       }
-
-    
 
       this.keysPressed[keyObj.code] = keyObj;
       // console.log(keyObj);
@@ -159,7 +176,7 @@ export default class Keyboard {
     } else if (type.match(/keyup|mouseup/)) {
       this.resetPressedButtons(code);
       if (code.match(/Shift/)) {
-        this.shiftKey = false;
+        this.isShift = false;
         this.switchUpperCase(false);
       }
       if (code.match(/Control/)) this.ctrlKey = false;
@@ -168,12 +185,12 @@ export default class Keyboard {
       if (!code.match(/Caps/)) keyObj.div.classList.remove('active');
     }
   }
-
+ 
   // отжатие кнопки, когда мышка ушла
   resetButtonState = ({ target: { dataset: { code } } }) => {
     if (code.match('Shift')) {
       this.switchUpperCase(false);
-      this.shiftKey = false;
+      this.isShift = false;
       // убираем подсветку
       this.keysPressed[code].div.classList.remove('active');
     }
@@ -212,6 +229,7 @@ export default class Keyboard {
       // eslint-disable-next-line no-param-reassign
       button.shift = keyObj.shift;
       button.small = keyObj.small;
+      button.sound = keyObj.sound;
 
       if (keyObj.shift && keyObj.shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
         button.sub.innerHTML = keyObj.shift;
@@ -230,15 +248,15 @@ export default class Keyboard {
     if (isTrue) {
       this.keyButtons.forEach((button) => {
         if (button.sub) {
-          if (this.shiftKey) {
+          if (this.isShift) {
             button.sub.classList.add('sub-active'); // класс для Uppercase
             button.letter.classList.add('sub-inactive'); // оно же
           }
         }
 
-        if (!button.isFnKey && this.isCaps && !this.shiftKey && !button.sub.innerHTML) {
+        if (!button.isFnKey && this.isCaps && !this.isShift && !button.sub.innerHTML) {
           button.letter.innerHTML = button.shift;
-        } else if (!button.isFnKey && this.isCaps && this.shiftKey) {
+        } else if (!button.isFnKey && this.isCaps && this.isShift) {
           button.letter.innerHTML = button.small;
         } else if (!button.isFnKey && !button.sub.innerHTML) {
           button.letter.innerHTML = button.shift;
@@ -246,7 +264,7 @@ export default class Keyboard {
       });
     } else {
       this.keyButtons.forEach((button) => {
-      // если пришла кнопка со спецсимволом
+        // если пришла кнопка со спецсимволом
         if (button.sub.innerHTML && !button.isFnKey) {
           button.sub.classList.remove('sub-active'); // класс для Uppercase
           button.letter.classList.remove('sub-inactive'); // оно же

@@ -3,11 +3,13 @@
 import create from './utils/create.js';
 
 export default class Key {
-  constructor({ small, shift, code }) {
+  constructor({ small, shift, code, sound }) {
     this.code = code;
     this.small = small;
     this.shift = shift;
-    this.isFnKey = Boolean(small.match(/Ctrl|arr|Alt|Shift|Tab|Back|Del|Enter|Caps|Esc\Win/));
+    this.sound = sound;
+    // this.isFnKey = Boolean(small.match(/Ctrl|arr|Alt|Shift|Tab|Back|Del|Enter|Caps|Esc|Win|Mic|Lang|Clear|SoundKeySwitch|BackgroundSound/));
+    this.isFnKey = Boolean(code.match(/ControlLeft|ArrowRight|ArrowLeft|ArrowUp|ArrowDown|ControlRight|AltLeft|AltRight|ShiftLeft|ShiftRight|Tab|Back|Del|Enter|Caps|Esc|Win|Mic|Lang|Clear|SoundKeySwitch|BackgroundSound/));
 
     // проверяем, что если в объекте по ключу shift лежит не буквы и не цифры, то
     // создаём элемент div с классом sub и записывает в свойства экземпляра класса Key
