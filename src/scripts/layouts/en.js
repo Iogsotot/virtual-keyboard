@@ -390,7 +390,7 @@ export default [
     sound: 'mic',
   },
   {
-    small: 'en/ru',
+    small: 'en',
     shift: null,
     code: 'Lang',
     sound: 'lang',

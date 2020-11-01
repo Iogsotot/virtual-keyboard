@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: all 200ms linear;
 }
 
 html {
@@ -11,9 +12,15 @@ html {
 
 body {
   background: rgb(28, 38, 70);
+  overflow-y: hidden;
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   max-width: 50rem;
   margin: auto;
 }
@@ -21,6 +28,38 @@ main {
 .title {
   color: #fff;
   text-align: center;
+}
+.btn-open {
+  width: 10rem;
+  height: 10rem;
+  padding: 2.5rem 0;
+  margin: 1rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2rem;
+  vertical-align: middle;
+  text-align: center;
+
+  color: #333333;
+  background-color: yellow;
+  border: 0px solid rgba(255, 166, 0, 0.7);
+  box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.911);
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.btn-open:hover {
+  color: rgb(248, 248, 242);
+  background-color: #333333;
+  box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.911);
+  z-index: 10;
+}
+
+.flyRight {
+  opacity: 0 !important;
+  transform: translateX(250rem) !important;
 }
 
 .output {
@@ -33,6 +72,7 @@ main {
 }
 
 .keyboard {
+  opacity: 1;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -42,6 +82,7 @@ main {
   border: 0.2rem solid rgba(1, 39, 88, 0.1);
   // background-color: rgba(192, 192, 192, 0.6);
   background-color: black;
+  transition: transform 650ms linear;
 }
 
 .keyboard__row {

@@ -3,6 +3,8 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
 }
 
 html {
@@ -12,9 +14,25 @@ html {
 
 body {
   background: #1c2646;
+  overflow-y: hidden;
 }
 
 main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   max-width: 50rem;
   margin: auto;
 }
@@ -22,6 +40,39 @@ main {
 .title {
   color: #fff;
   text-align: center;
+}
+
+.btn-open {
+  width: 10rem;
+  height: 10rem;
+  padding: 2.5rem 0;
+  margin: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2rem;
+  vertical-align: middle;
+  text-align: center;
+  color: #333333;
+  background-color: yellow;
+  border: 0px solid rgba(255, 166, 0, 0.7);
+  -webkit-box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.911);
+          box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.911);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn-open:hover {
+  color: #f8f8f2;
+  background-color: #333333;
+  -webkit-box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.911);
+          box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.911);
+  z-index: 10;
+}
+
+.flyRight {
+  opacity: 0 !important;
+  -webkit-transform: translateX(250rem) !important;
+          transform: translateX(250rem) !important;
 }
 
 .output {
@@ -33,6 +84,7 @@ main {
 }
 
 .keyboard {
+  opacity: 1;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
@@ -42,6 +94,10 @@ main {
   width: 50rem;
   border: 0.2rem solid rgba(1, 39, 88, 0.1);
   background-color: black;
+  -webkit-transition: -webkit-transform 650ms linear;
+  transition: -webkit-transform 650ms linear;
+  transition: transform 650ms linear;
+  transition: transform 650ms linear, -webkit-transform 650ms linear;
 }
 
 .keyboard__row {

@@ -390,10 +390,10 @@ export default [
     sound: 'mic',
   },
   {
-    small: 'en/ru',
+    small: 'ru',
     shift: null,
     code: 'Lang',
-    sound: 'fn',
+    sound: 'lang',
   },
   {
     small: 'Clear',

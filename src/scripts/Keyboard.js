@@ -8,7 +8,8 @@ import Key from './Key.js';
 
 const main = create('main', '',
 // здесь прописываем наши HTML элементы вида 'тег', 'класс', 'содержание'
-  [create('h1', 'title', 'Virtual Keyboard')]);
+  [create('h1', 'title', 'Virtual Keyboard'),
+    create('div', 'btn-open', 'Open keyboard')]);
 
 export default class Keyboard {
   constructor(rowsOrder) {
@@ -143,6 +144,17 @@ export default class Keyboard {
 
       if (code.match(/Control/) && this.altKey) this.switchLang();
       if (code.match(/Alt/) && this.ctrlKey) this.switchLang();
+      if (code.match(/Lang/)) this.switchLang();
+
+      // удаление всего текста
+      if (code.match(/Clear/)) this.output.value = '';
+
+      // скрытие и появление клавиатуры
+      const Open = document.querySelector('.btn-open');
+      // const Keyboard = document.querySelector('.keyboard');
+      if (code.match(/Close/)) this.container.style.transform = 'translateY(50vh)';
+      // if (code.match(/Close/)) this.container.classList.add('flyRight');
+      Open.addEventListener('click', () => { this.container.style.transform = 'translateY(0)'; });
 
       // подсветка кнопок
       keyObj.div.classList.add('active');
@@ -195,7 +207,7 @@ export default class Keyboard {
       if (!code.match(/Caps/)) keyObj.div.classList.remove('active');
     }
   }
- 
+
   // отжатие кнопки, когда мышка ушла
   resetButtonState = ({ target: { dataset: { code } } }) => {
     if (code.match('Shift')) {
