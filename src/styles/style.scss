@@ -10,35 +10,44 @@ html {
   font-family: Arial, Helvetica, sans-serif
 }
 
+
+
 body {
+  position: relative;
   background: rgb(28, 38, 70);
-  overflow-y: hidden;
+  height: 680px;
   min-width: 500px;
+  overflow-y: hidden;
 }
 
 main {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   max-width: 50rem;
   margin: auto;
+  overflow-y: hidden;
+
+  height: 100%;
+  // height: inherit;
 }
 
 .title {
+  margin-top: 1rem;
   color: #fff;
   text-align: center;
 }
 .btn-open {
-  width: 10rem;
-  height: 10rem;
-  padding: 2.5rem 0;
-  margin: 1rem;
+  width: 100px;
+  height: 100px;
+  padding: 25px 0;
+  margin: 10px;
 
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 2rem;
+  line-height: 20px;
   vertical-align: middle;
   text-align: center;
 
@@ -65,14 +74,17 @@ main {
 
 .output {
   width: 50rem;
-  height: 40vh;
+  height: calc(100% - 350px);
   padding: 1rem;
   border: 0.8rem solid;
+  font-size: 1.4rem;
 
   resize: none;
 }
 
 .keyboard {
+  position: absolute;
+  bottom: 0;
   opacity: 1;
   display: grid;
   grid-template-columns: auto;
@@ -196,32 +208,62 @@ main {
   }
 }
 
+@media (min-width: 600px) {
+  body {
+    height: 702px;
+  }
+  html {
+    font-size: 11px;
+  }
+  main {
+    max-width: 600px;
+  }
+  .output {
+    height: calc(100% - 375px);
+  }
+}
 
+@media (min-width: 750px) {
+  body {
+    height: 730px;
+  }
+  html {
+    font-size: 12px;
+  }
+  main {
+    max-width: 750px;
+  }
+  .output {
+    height: calc(100% - 400px);
+  }
+}
 
+@media (min-width: 860px) {
+  body {
+    height: 772px;
+  }
+  html {
+    font-size: 14px;
+  }
+  main {
+    max-width: 860px;
+  }
+  .output {
+    height: calc(100% - 445px);
+  }
+}
 
-// @keyframes fadeInOut {
-//   0% {
-//     opacity: 0.5;
-//     transform: scale(0.8);
-//     -webkit-transform: scale(0.8);
-//     -moz-transform: scale(0.8);
-//     -ms-transform: scale(0.8);
-//     -o-transform: scale(0.8);
-// }
-//   50% {
-//     opacity: 1;
-//     transform: scale(1.5);
-//     -webkit-transform: scale(1.5);
-//     -moz-transform: scale(1.5);
-//     -ms-transform: scale(1.5);
-//     -o-transform: scale(1.5);
-// }
-//   100% {
-//     opacity: 0;
-//     transform: scale(2.5);
-//     -webkit-transform: scale(2.5);
-//     -moz-transform: scale(2.5);
-//     -ms-transform: scale(2.5);
-//     -o-transform: scale(2.5);
-// }
-// }
+@media (min-width: 1024px) {
+  body {
+    height: 820px;
+  }
+  html {
+    font-size: 16px;
+  }
+  main {
+    max-width: 1000px;
+  }
+  .output {
+    height: calc(100% - 490px);
+  }
+}

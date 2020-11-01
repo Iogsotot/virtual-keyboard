@@ -151,10 +151,14 @@ export default class Keyboard {
 
       // скрытие и появление клавиатуры
       const Open = document.querySelector('.btn-open');
-      // const Keyboard = document.querySelector('.keyboard');
-      if (code.match(/Close/)) this.container.style.transform = 'translateY(50vh)';
-      // if (code.match(/Close/)) this.container.classList.add('flyRight');
-      Open.addEventListener('click', () => { this.container.style.transform = 'translateY(0)'; });
+      if (code.match(/Close/)) {
+        this.container.style.transform = 'translateY(50vh)';
+        // setTimeout(() => { this.container.style.display = 'none'; }, 150);
+      }
+      Open.addEventListener('click', () => {
+        // this.container.style.display = 'block';
+        this.container.style.transform = 'translateY(0)';
+      });
 
       // подсветка кнопок
       keyObj.div.classList.add('active');
