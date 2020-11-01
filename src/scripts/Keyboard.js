@@ -41,7 +41,7 @@ export default class Keyboard {
 
   // ru or en
   init(langCode) {
-    // console.log(langCode);
+    console.log(langCode);
     // console.log(this.keyBase);
     this.keyBase = language[langCode]; // массив
     // output - вывод, равнозначно можно назвать как textarea
@@ -81,6 +81,31 @@ export default class Keyboard {
     this.container.addEventListener('mouseup', this.preHandleEvent);
   }
 
+  recordSpeech() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.lang = localStorage.getItem('kbLang').slice(1, 3); // приходит слишком много кавычек ""ru""
+
+    recognition.addEventListener('result', (e) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+
+      this.output.value += transcript;
+      // if (e.results[0].isFinal) {
+      //   p = document.createElement('p');
+      //   words.appendChild(p);
+      // }
+    });
+
+    recognition.addEventListener('end', recognition.start);
+
+    recognition.start();
+    return this;
+  }
+
   // функция обработки кликов
   preHandleEvent = (e) => {
     // отменяем всплытие (развернуть комментарий)
@@ -96,17 +121,7 @@ export default class Keyboard {
     // console.log(this.handleEvent)
   }
 
-  // // отжатие кнопки, когда мышка ушла
-  // resetButtonState = ({ target: { dataset: { code } } }) => {
-  //   // if (code.match('Shift')) this.switchUpperCase(false);
-  //   // this.resetPressedButtons(code);
-  //   const keyObj = this.keyButtons.find((key) => key.code === code);
-  //   // убираем подсветку
-  //   keyObj.div.classList.remove('active');
-  //   // снимаем listener
-  //   keyObj.removeEventListener('mouseleave', this.resetButtonsState);
-  // }
-
+  // звук
   changeSoundSetting() {
     if (this.soundEnabled) this.soundEnabled = false;
     else this.soundEnabled = true;
@@ -151,14 +166,17 @@ export default class Keyboard {
       // удаление всего текста
       if (code.match(/Clear/)) this.output.value = '';
 
+      // голосовой набор
+      if (code.match(/Mic/)) {
+        this.recordSpeech();
+      }
+
       // скрытие и появление клавиатуры
-      const Open = document.querySelector('.btn-open');
+      const OPEN = document.querySelector('.btn-open');
       if (code.match(/Close/)) {
         this.container.style.transform = 'translateY(50vh)';
-        // setTimeout(() => { this.container.style.display = 'none'; }, 150);
       }
-      Open.addEventListener('click', () => {
-        // this.container.style.display = 'block';
+      OPEN.addEventListener('click', () => {
         this.container.style.transform = 'translateY(0)';
       });
 
@@ -220,7 +238,7 @@ export default class Keyboard {
       this.switchUpperCase(false);
       this.isShift = false;
       // убираем подсветку
-      this.keysPressed[code].div.classList.remove('active');
+      this.keysPressed[code].classList.remove('active');
     }
     if (code.match(/Control/)) this.ctrlKey = false;
     if (code.match(/Alt/)) this.altKey = false;
@@ -238,7 +256,7 @@ export default class Keyboard {
     delete this.keysPressed[targetCode];
   }
 
-  // сменя языка по хоткею
+  // смена языка по хоткею и по спец. кнопке
   switchLang = () => {
     // получаем аббревиатуру языка
     const LangAbbr = Object.keys(language); // получаем массив языков
