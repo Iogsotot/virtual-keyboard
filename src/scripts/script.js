@@ -8,7 +8,7 @@ const rowsOrder = [
   ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Backslash', 'Enter'],
   ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
   ['ControlLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'],
-  ['Mic', 'Lang', 'Clear', 'SoundKeySwitch', 'BackgroundSound'],
+  ['Mic', 'Lang', 'Clear', 'SoundKeySwitch', 'BackgroundSound', 'CloseKeyboard'],
 ];
 
 const language = get('kbLang', '"ru"');

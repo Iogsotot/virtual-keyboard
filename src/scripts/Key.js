@@ -9,7 +9,7 @@ export default class Key {
     this.shift = shift;
     this.sound = sound;
     // this.isFnKey = Boolean(small.match(/Ctrl|arr|Alt|Shift|Tab|Back|Del|Enter|Caps|Esc|Win|Mic|Lang|Clear|SoundKeySwitch|BackgroundSound/));
-    this.isFnKey = Boolean(code.match(/ControlLeft|ArrowRight|ArrowLeft|ArrowUp|ArrowDown|ControlRight|AltLeft|AltRight|ShiftLeft|ShiftRight|Tab|Back|Del|Enter|Caps|Esc|Win|Mic|Lang|Clear|SoundKeySwitch|BackgroundSound/));
+    this.isFnKey = Boolean(code.match(/ControlLeft|ArrowRight|ArrowLeft|ArrowUp|ArrowDown|ControlRight|AltLeft|AltRight|ShiftLeft|ShiftRight|Tab|Back|Del|Enter|Caps|Esc|Win|Mic|Lang|Clear|SoundKeySwitch|BackgroundSound|CloseKeyboard/));
 
     // проверяем, что если в объекте по ключу shift лежит не буквы и не цифры, то
     // создаём элемент div с классом sub и записывает в свойства экземпляра класса Key

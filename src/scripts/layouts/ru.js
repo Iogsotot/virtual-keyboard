@@ -3,414 +3,420 @@ export default [
     small: 'CapsLk',
     shift: null,
     code: 'CapsLock',
-    sound: 'fn'
+    sound: 'caps',
   },
   {
     small: 'ё',
     shift: 'Ё',
     code: 'Backquote',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: '1',
     shift: '!',
     code: 'Digit1',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '2',
     shift: '"',
     code: 'Digit2',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '3',
     shift: '№',
     code: 'Digit3',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '4',
     shift: ';',
     code: 'Digit4',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '5',
     shift: '%',
     code: 'Digit5',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '6',
     shift: ':',
     code: 'Digit6',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '7',
     shift: '?',
     code: 'Digit7',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '8',
     shift: '*',
     code: 'Digit8',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '9',
     shift: '(',
     code: 'Digit9',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '0',
     shift: ')',
     code: 'Digit0',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '-',
     shift: '_',
     code: 'Minus',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '=',
     shift: '+',
     code: 'Equal',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: 'Backspace',
     shift: null,
     code: 'Backspace',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Delete',
     shift: null,
     code: 'Delete',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Tab',
     shift: null,
     code: 'Tab',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'й',
     shift: 'Й',
     code: 'KeyQ',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ц',
     shift: 'Ц',
     code: 'KeyW',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'у',
     shift: 'У',
     code: 'KeyE',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'к',
     shift: 'К',
     code: 'KeyR',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'е',
     shift: 'Е',
     code: 'KeyT',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'н',
     shift: 'Н',
     code: 'KeyY',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'г',
     shift: 'Г',
     code: 'KeyU',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ш',
     shift: 'Ш',
     code: 'KeyI',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'щ',
     shift: 'Щ',
     code: 'KeyO',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'з',
     shift: 'З',
     code: 'KeyP',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'х',
     shift: 'Х',
     code: 'BracketLeft',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ъ',
     shift: 'Ъ',
     code: 'BracketRight',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'Enter',
     shift: null,
     code: 'Enter',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'ф',
     shift: 'Ф',
     code: 'KeyA',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ы',
     shift: 'Ы',
     code: 'KeyS',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'в',
     shift: 'В',
     code: 'KeyD',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'а',
     shift: 'А',
     code: 'KeyF',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'п',
     shift: 'П',
     code: 'KeyG',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'р',
     shift: 'Р',
     code: 'KeyH',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'о',
     shift: 'О',
     code: 'KeyJ',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'л',
     shift: 'Л',
     code: 'KeyK',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'д',
     shift: 'Д',
     code: 'KeyL',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ж',
     shift: 'Ж',
     code: 'Semicolon',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'э',
     shift: 'Э',
     code: 'Quote',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: '\\',
     shift: '/',
     code: 'Backslash',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'Shift',
     shift: null,
     code: 'ShiftLeft',
-    sound: 'fn'
+    sound: 'shift',
   },
   {
     small: '/',
     shift: '|',
     code: 'IntlBackslash',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'я',
     shift: 'Я',
     code: 'KeyZ',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ч',
     shift: 'Ч',
     code: 'KeyX',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'с',
     shift: 'С',
     code: 'KeyC',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'м',
     shift: 'М',
     code: 'KeyV',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'и',
     shift: 'И',
     code: 'KeyB',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'т',
     shift: 'Т',
     code: 'KeyN',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ь',
     shift: 'Ь',
     code: 'KeyM',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'б',
     shift: 'Б',
     code: 'Comma',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'ю',
     shift: 'Ю',
     code: 'Period',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: '.',
     shift: ',',
     code: 'Slash',
-    sound: 'ru'
+    sound: 'ru',
   },
   {
     small: 'Shift',
     shift: null,
     code: 'ShiftRight',
-    sound: 'fn'
+    sound: 'shift',
   },
   {
     small: 'Ctrl',
     shift: null,
     code: 'ControlLeft',
-    sound: 'fn'
+    sound: 'ctrl',
   },
   {
     small: 'Alt',
     shift: null,
     code: 'AltLeft',
-    sound: 'fn'
+    sound: 'alt',
   },
   {
     small: ' ',
     shift: null,
     code: 'Space',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Alt',
     shift: null,
     code: 'AltRight',
-    sound: 'fn'
+    sound: 'alt',
   },
   {
     small: 'Ctrl',
     shift: null,
     code: 'ControlRight',
-    sound: 'fn'
+    sound: 'ctrl',
   },
   {
     small: '&larr;',
     shift: null,
     code: 'ArrowLeft',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&uarr;',
     shift: null,
     code: 'ArrowUp',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&darr;',
     shift: null,
     code: 'ArrowDown',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&rarr;',
     shift: null,
     code: 'ArrowRight',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Mic',
     shift: null,
     code: 'Mic',
-    sound: 'fn'
+    sound: 'mic',
   },
   {
     small: 'en/ru',
     shift: null,
     code: 'Lang',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Clear',
     shift: null,
     code: 'Clear',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
-    small: 'Sound Key',
+    small: 'Звук клавиш',
     shift: null,
     code: 'SoundKeySwitch',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
-    small: 'Background Sound',
+    small: '&#128123',
     shift: null,
     code: 'BackgroundSound',
-    sound: 'fn'
+    sound: 'ghost',
+  },
+  {
+    small: '&#10006;',
+    shift: null,
+    code: 'CloseKeyboard',
+    sound: 'close',
   },
 ];

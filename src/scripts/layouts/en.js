@@ -3,414 +3,421 @@ export default [
     small: '`',
     shift: '~',
     code: 'Backquote',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: '1',
     shift: '!',
     code: 'Digit1',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '2',
     shift: '@',
     code: 'Digit2',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '3',
     shift: '#',
     code: 'Digit3',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '4',
     shift: '$',
     code: 'Digit4',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '5',
     shift: '%',
     code: 'Digit5',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '6',
     shift: '^',
     code: 'Digit6',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '7',
     shift: '&',
     code: 'Digit7',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '8',
     shift: '*',
     code: 'Digit8',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '9',
     shift: '(',
     code: 'Digit9',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '0',
     shift: ')',
     code: 'Digit0',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '-',
     shift: '_',
     code: 'Minus',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: '=',
     shift: '+',
     code: 'Equal',
-    sound: 'num'
+    sound: 'num',
   },
   {
     small: 'Backspace',
     shift: null,
     code: 'Backspace',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Delete',
     shift: null,
     code: 'Delete',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Tab',
     shift: null,
     code: 'Tab',
-    sound: 'fn'
+    sound: 'tab',
   },
   {
     small: 'q',
     shift: 'Q',
     code: 'KeyQ',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'w',
     shift: 'W',
     code: 'KeyW',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'e',
     shift: 'E',
     code: 'KeyE',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'r',
     shift: 'R',
     code: 'KeyR',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 't',
     shift: 'T',
     code: 'KeyT',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'y',
     shift: 'Y',
     code: 'KeyY',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'u',
     shift: 'U',
     code: 'KeyU',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'i',
     shift: 'I',
     code: 'KeyI',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'o',
     shift: 'O',
     code: 'KeyO',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'p',
     shift: 'P',
     code: 'KeyP',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: '[',
     shift: '{',
     code: 'BracketLeft',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: ']',
     shift: '}',
     code: 'BracketRight',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'Enter',
     shift: null,
     code: 'Enter',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'CapsLk',
     shift: null,
     code: 'CapsLock',
-    sound: 'fn'
+    sound: 'caps',
   },
   {
     small: 'a',
     shift: 'A',
     code: 'KeyA',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 's',
     shift: 'S',
     code: 'KeyS',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'd',
     shift: 'D',
     code: 'KeyD',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'f',
     shift: 'F',
     code: 'KeyF',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'g',
     shift: 'G',
     code: 'KeyG',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'h',
     shift: 'H',
     code: 'KeyH',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'j',
     shift: 'J',
     code: 'KeyJ',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'k',
     shift: 'K',
     code: 'KeyK',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'l',
     shift: 'L',
     code: 'KeyL',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: ';',
     shift: ':',
     code: 'Semicolon',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: "'",
     shift: '"',
     code: 'Quote',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: '\\',
     shift: '|',
     code: 'Backslash',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'Shift',
     shift: null,
     code: 'ShiftLeft',
-    sound: 'fn'
+    sound: 'shift',
   },
   {
     small: '<',
     shift: '>',
     code: 'IntlBackslash',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'z',
     shift: 'Z',
     code: 'KeyZ',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'x',
     shift: 'X',
     code: 'KeyX',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'c',
     shift: 'C',
     code: 'KeyC',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'v',
     shift: 'V',
     code: 'KeyV',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'b',
     shift: 'B',
     code: 'KeyB',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'n',
     shift: 'N',
     code: 'KeyN',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'm',
     shift: 'M',
     code: 'KeyM',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: ',',
     shift: '<',
     code: 'Comma',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: '.',
     shift: '>',
     code: 'Period',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: '/',
     shift: '?',
     code: 'Slash',
-    sound: 'en'
+    sound: 'en',
   },
   {
     small: 'Shift',
     shift: null,
     code: 'ShiftRight',
-    sound: 'fn'
+    sound: 'shift',
   },
   {
     small: 'Ctrl',
     shift: null,
     code: 'ControlLeft',
-    sound: 'fn'
+    sound: 'ctrl',
   },
   {
     small: 'Alt',
     shift: null,
     code: 'AltLeft',
-    sound: 'fn'
+    sound: 'alt',
   },
   {
     small: ' ',
     shift: null,
     code: 'Space',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Alt',
     shift: null,
     code: 'AltRight',
-    sound: 'fn'
+    sound: 'alt',
   },
   {
     small: 'Ctrl',
     shift: null,
     code: 'ControlRight',
-    sound: 'fn'
+    sound: 'ctrl',
   },
   {
     small: '&larr;',
     shift: null,
     code: 'ArrowLeft',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&uarr;',
     shift: null,
     code: 'ArrowUp',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&darr;',
     shift: null,
     code: 'ArrowDown',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: '&rarr;',
     shift: null,
     code: 'ArrowRight',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
     small: 'Mic',
     shift: null,
     code: 'Mic',
-    sound: 'fn'
+    sound: 'mic',
   },
   {
     small: 'en/ru',
     shift: null,
     code: 'Lang',
-    sound: 'fn'
+    sound: 'lang',
   },
   {
     small: 'Clear',
     shift: null,
     code: 'Clear',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
-    small: 'Sound Key',
+    small: 'Key sounds',
     shift: null,
     code: 'SoundKeySwitch',
-    sound: 'fn'
+    sound: 'fn',
   },
   {
-    small: 'Background ound',
+    small: '&#128123',
     shift: null,
     code: 'BackgroundSound',
-    sound: 'fn'
+    sound: 'ghost',
   },
+  {
+    small: '&#10006;',
+    shift: null,
+    code: 'CloseKeyboard',
+    sound: 'close',
+  },
+
 ];
