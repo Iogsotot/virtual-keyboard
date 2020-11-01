@@ -13,6 +13,7 @@ html {
 body {
   background: rgb(28, 38, 70);
   overflow-y: hidden;
+  min-width: 500px;
 }
 
 main {
@@ -80,7 +81,6 @@ main {
   width: 50rem;
 
   border: 0.2rem solid rgba(1, 39, 88, 0.1);
-  // background-color: rgba(192, 192, 192, 0.6);
   background-color: black;
   transition: transform 650ms linear;
 }
@@ -113,6 +113,7 @@ main {
   cursor: pointer;
   background-color: #333333;
 
+  transition: all 250ms ease;
 
   .sub {
     font-size: 1.1rem;
@@ -123,15 +124,24 @@ main {
     text-align: center;
     vertical-align: middle;
   }
-  .sub-active {
-
-  }
-  .sub-inactive {
-
-  }
   &.active {
-    background-color: green;
+    background-color: green !important;
   }
+  &:hover {
+    box-shadow: 0 0 2px 1px white;
+    background-color: rgba(51, 51, 51, 0.6);
+    transition: all 250ms ease;
+  }
+}
+
+.sub.sub-active:not(:empty) {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.sub.sub-active:not(:empty) ~ .letter.sub-inactive {
+    font-size: 1.1rem;
+    color: #7a7a7a;
 }
 
 [data-code*="Digit"] {
@@ -178,32 +188,40 @@ main {
   grid-column: auto / span 15;
 }
 
+[data-code*="Close"] {
+  background-color: rgba(255, 0, 0, 0.623);
+  &:hover {
+    background-color: red;
+    color: black;
+  }
+}
 
 
 
-@keyframes fadeInOut {
-  0% {
-    opacity: 0.5;
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-    -o-transform: scale(0.8);
-}
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    -o-transform: scale(1.5);
-}
-  100% {
-    opacity: 0;
-    transform: scale(2.5);
-    -webkit-transform: scale(2.5);
-    -moz-transform: scale(2.5);
-    -ms-transform: scale(2.5);
-    -o-transform: scale(2.5);
-}
-}
+
+// @keyframes fadeInOut {
+//   0% {
+//     opacity: 0.5;
+//     transform: scale(0.8);
+//     -webkit-transform: scale(0.8);
+//     -moz-transform: scale(0.8);
+//     -ms-transform: scale(0.8);
+//     -o-transform: scale(0.8);
+// }
+//   50% {
+//     opacity: 1;
+//     transform: scale(1.5);
+//     -webkit-transform: scale(1.5);
+//     -moz-transform: scale(1.5);
+//     -ms-transform: scale(1.5);
+//     -o-transform: scale(1.5);
+// }
+//   100% {
+//     opacity: 0;
+//     transform: scale(2.5);
+//     -webkit-transform: scale(2.5);
+//     -moz-transform: scale(2.5);
+//     -ms-transform: scale(2.5);
+//     -o-transform: scale(2.5);
+// }
+// }

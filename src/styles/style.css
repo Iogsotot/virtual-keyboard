@@ -15,6 +15,7 @@ html {
 body {
   background: #1c2646;
   overflow-y: hidden;
+  min-width: 500px;
 }
 
 main {
@@ -133,6 +134,8 @@ main {
   color: #fff;
   cursor: pointer;
   background-color: #333333;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
 }
 
 .keyboard__key .sub {
@@ -147,7 +150,25 @@ main {
 }
 
 .keyboard__key.active {
-  background-color: green;
+  background-color: green !important;
+}
+
+.keyboard__key:hover {
+  -webkit-box-shadow: 0 0 2px 1px white;
+          box-shadow: 0 0 2px 1px white;
+  background-color: rgba(51, 51, 51, 0.6);
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+
+.sub.sub-active:not(:empty) {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.sub.sub-active:not(:empty) ~ .letter.sub-inactive {
+  font-size: 1.1rem;
+  color: #7a7a7a;
 }
 
 [data-code*="Digit"] .letter {
@@ -191,57 +212,12 @@ main {
   grid-column: auto / span 15;
 }
 
-@-webkit-keyframes fadeInOut {
-  0% {
-    opacity: 0.5;
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-    -o-transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    -o-transform: scale(1.5);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.5);
-    -webkit-transform: scale(2.5);
-    -moz-transform: scale(2.5);
-    -ms-transform: scale(2.5);
-    -o-transform: scale(2.5);
-  }
+[data-code*="Close"] {
+  background-color: rgba(255, 0, 0, 0.623);
 }
 
-@keyframes fadeInOut {
-  0% {
-    opacity: 0.5;
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-    -o-transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    -o-transform: scale(1.5);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.5);
-    -webkit-transform: scale(2.5);
-    -moz-transform: scale(2.5);
-    -ms-transform: scale(2.5);
-    -o-transform: scale(2.5);
-  }
+[data-code*="Close"]:hover {
+  background-color: red;
+  color: black;
 }
 /*# sourceMappingURL=style.css.map */
