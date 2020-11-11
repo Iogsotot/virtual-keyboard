@@ -1,5 +1,5 @@
 # Virtual keyboard
-Виртуальная клавиатура
-    * Vanilla JS
-    * SCSS
-    * OOP
+Виртуальная клавиатура:   
+  - Vanilla JS    
+  - SCSS    
+  - OOP    
